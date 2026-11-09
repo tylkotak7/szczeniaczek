@@ -3993,15 +3993,17 @@ function lookUI(){o(`<div class="pk"><h2>🎨 Wygląd szczeniaczka</h2><p class=
  <button class="sec" onclick="shop(0)">🎩 Czapki w sklepie</button><button class="big" onclick="menuUI()">Gotowe ✔</button></div>`,'m')}
 
 // ===== RANKINGI ONLINE (Firebase Realtime Database, REST) =====
-let LB_URL='';// np. 'https://szczeniaczek-xxxx-default-rtdb.europe-west1.firebasedatabase.app'
+let LB_URL='https://szczeniaczek-915cc-default-rtdb.europe-west1.firebasedatabase.app';
+const LB_ALT=['https://szczeniaczek-915cc-default-rtdb.europe-west1.firebasedatabase.app','https://szczeniaczek-915cc-default-rtdb.firebaseio.com','https://szczeniaczek-915cc-default-rtdb.asia-southeast1.firebasedatabase.app'];let LB_OK=0;
+async function lbF(path,opt){const L=LB_OK?[LB_URL]:[LB_URL,...LB_ALT.filter(u=>u!=LB_URL)];let last;for(const u of L){try{const r=await fetch(u+path,opt);if(r.ok||r.status==401||r.status==403){if(r.ok){LB_URL=u;LB_OK=1}return r}last=r}catch(e){last=e}}if(last instanceof Response)return last;throw last||new Error('net')}
 let LASTR=null;
 function lbOn(){return!!LB_URL}
 function lbPid(){if(!CFX.pid){CFX.pid='p'+Math.random().toString(36).slice(2,12);save()}return CFX.pid}
 function lbClean(s){return String(s||'').replace(/[<>&"'`\\\/{}\[\]$#.]/g,'').replace(/\s+/g,' ').trim().slice(0,16)}
 function lbEsc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function lbG(id){return GL.find(g=>g[0]==id)||[id,'🎮',id,'pkt']}
-async function lbGet(id){const r=await fetch(`${LB_URL}/lb/${id}.json?orderBy=${encodeURIComponent('"s"')}&limitToLast=50`);if(!r.ok)throw new Error(r.status);const d=await r.json()||{};return Object.entries(d).map(([k,v])=>({k,n:v.n,s:v.s,t:v.t})).sort((a,b)=>b.s-a.s||a.t-b.t)}
-async function lbPut(id,v){const r=await fetch(`${LB_URL}/lb/${id}/${lbPid()}.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({n:CFX.nick,s:v,t:{'.sv':'timestamp'}})});return r.ok}
+async function lbGet(id){const r=await lbF(`/lb/${id}.json?orderBy=${encodeURIComponent('"s"')}&limitToLast=50`);if(!r.ok)throw new Error(r.status);const d=await r.json()||{};return Object.entries(d).map(([k,v])=>({k,n:v.n,s:v.s,t:v.t})).sort((a,b)=>b.s-a.s||a.t-b.t)}
+async function lbPut(id,v){const r=await lbF(`/lb/${id}/${lbPid()}.json`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({n:CFX.nick,s:v,t:{'.sv':'timestamp'}})});return r.ok}
 {const _rec=rec;rec=function(id,v,q){if(typeof v=='number'&&v>0)LASTR={id,v,t:Date.now()};_rec(id,v,q)}}
 function nickUI(then){o(`<div class="pk"><h2>🌍 Twój nick</h2><p class="sm">Pod tą nazwą będziesz widoczny w rankingach online. Bez prawdziwego imienia i nazwiska 🙂</p><input id="nick" class="nick" maxlength="16" placeholder="np. Burek123" value="${lbEsc(CFX.nick||'')}"><p class="sm" id="nerr" style="color:#ff9b9b"></p><button class="big" onclick="nickSave()">Zapisz ✔</button><button class="sec" onclick="closeD()">Anuluj</button></div>`,'m');window.NICKTHEN=then;setTimeout(()=>{const i=$('nick');if(i)i.focus()},100)}
 function nickSave(){const v=lbClean($('nick').value);if(v.length<2){$('nerr').textContent='Nick musi mieć 2–16 znaków.';return}CFX.nick=v;save();const t=window.NICKTHEN;window.NICKTHEN=null;if(t)t();else closeD()}
