@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "lb": {
+      "$game": {
+        ".read": "$game.matches(/^[a-z0-9]{1,12}$/)",
+        ".indexOn": ["s"],
+        "$pid": {
+          ".write": "$game.matches(/^[a-z0-9]{1,12}$/) && $pid.matches(/^p[a-z0-9]{4,12}$/)",
+          ".validate": "newData.hasChildren(['n','s','t']) && newData.child('n').isString() && newData.child('n').val().length >= 2 && newData.child('n').val().length <= 16 && newData.child('s').isNumber() && newData.child('s').val() > 0 && newData.child('s').val() < 100000 && newData.child('t').val() == now && (!data.exists() || newData.child('s').val() > data.child('s').val())",
+          "n": {".validate": true}, "s": {".validate": true}, "t": {".validate": true},
+          "$other": {".validate": false}
+        }
+      }
+    },
+    "$any": {".read": false, ".write": false}
+  }
+}
