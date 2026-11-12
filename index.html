@@ -259,6 +259,15 @@ body.ui1 .pin:not(.sm){display:none!important}
 .news{text-align:left;padding-left:4px;margin:6px 0 12px;list-style:none;max-height:56vh;overflow:auto}.news li{margin:6px 0;padding:7px 10px;background:#ffffff0f;border-radius:12px;font-size:13.5px;line-height:1.35}
 .mbt .mnews{background:linear-gradient(#ffd166,#f4a261)!important;color:#3e2200!important;border:none!important;font-weight:700!important}
 .ckp{z-index:4!important;padding:4px 9px 4px 6px!important}.ckp b{font-size:22px!important}.ckp i{width:76px!important;height:13px!important;border-radius:7px!important}.ckl.busy{opacity:0;pointer-events:none}.ckp.go{border-color:#7dff9a!important;box-shadow:0 0 0 3px #7dff9a,0 0 16px 4px #7dff9acc!important}
+#o.mpo{padding:0;background:linear-gradient(#8ecae6,#bde0fe 45%,#7bc47f 45%,#5a9e5e)}#o.mpo>div{max-width:none!important;width:100%;height:100%;background:none!important;border:0!important;box-shadow:none!important;padding:0!important}
+.mpw{height:100%;display:flex;flex-direction:column;align-items:center;padding:calc(env(safe-area-inset-top,0px) + 10px) 12px calc(env(safe-area-inset-bottom,0px) + 18px);box-sizing:border-box;color:#fff}
+.mph{width:100%;display:flex;align-items:center;justify-content:space-between}.mph span{background:#0009;padding:5px 12px;border-radius:999px;font-weight:800;letter-spacing:2px}.mph b{background:#0009;padding:5px 12px;border-radius:999px;font-size:18px}.mph button{margin:0;width:44px;height:44px;padding:0;border-radius:50%;background:#0009;box-shadow:none;font-size:18px}
+.mpn{width:100%;display:flex;justify-content:space-between;margin:16px 0 8px;font:800 16px var(--f);text-shadow:0 2px 0 #0007}.mpn small{display:inline-block;background:#fff;color:#3e2200;border-radius:999px;padding:1px 9px;margin:0 6px;font-size:16px;text-shadow:none}
+.mpr{position:relative;width:100%;height:70px;margin:8px 0}.mpr .rope{position:absolute;left:0;right:0;top:31px;height:9px;border-radius:5px;background:repeating-linear-gradient(115deg,#c8955a 0 8px,#a8743c 8px 16px);box-shadow:0 3px 0 #0004}.mpr i{position:absolute;top:0;bottom:0;width:8%;border-radius:10px}.mpr i.l{left:0;background:#3a86ff55}.mpr i.r{right:0;background:#ff4d6d55}
+#mpk{position:absolute;top:8px;font-size:40px;transform:translateX(-50%);transition:left .12s linear;filter:drop-shadow(0 3px 0 #0006)}.mpr .ml,.mpr .mr{position:absolute;top:-6px;font-size:22px}.mpr .ml{left:4%}.mpr .mr{right:4%}
+#mpmsg{min-height:60px;font:900 26px var(--f);text-shadow:0 3px 0 #0008;margin-top:10px}#mpmsg.cd{font-size:72px;color:#ffd166}
+#mpb{margin:auto 0 0!important;width:min(78vw,300px);height:min(78vw,300px);border-radius:50%!important;font:900 30px/1.15 var(--f)!important;background:radial-gradient(circle at 35% 30%,#ffd166,#f77f00)!important;color:#3e2200!important;box-shadow:0 10px 0 #9a4d00,0 14px 28px #0006!important;touch-action:manipulation;user-select:none}#mpb:disabled{filter:grayscale(.7);opacity:.6}#mpb.hit{animation:mphit .12s}@keyframes mphit{50%{transform:translateY(6px) scale(.96);box-shadow:0 4px 0 #9a4d00}}
+.mpcode{font:900 54px var(--f);letter-spacing:10px;color:#ffd166;background:#0006;border-radius:18px;padding:8px 0;margin:6px 0 10px}.mpdots::after{content:'…';animation:mpd 1.2s infinite}@keyframes mpd{0%{content:''}33%{content:'.'}66%{content:'..'}}
 </style></head><body>
 <div id="h"></div><div id="bb"></div><div id="pins"></div><div id="tb"><button onclick="games()"><b>🎮</b>Gry</button><button onclick="walkUI()"><b>🦮</b>Spacer</button><button onclick="shop()"><b>🛍️</b>Sklep</button><button onclick="showAch()"><b>🏆</b>Puchary</button><button onclick="settings()"><b>⚙️</b>Opcje</button><button onclick="menuAsk()"><b>🏠</b>Menu</button></div><div id="ab"></div><div id="tc"><button onpointerdown="lane(-1)" aria-label="W lewo">◀</button><button onpointerdown="lane(1)" aria-label="W prawo">▶</button></div><div id="ts"></div><div id="o"><div id="p"></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -4248,10 +4257,61 @@ function pfCancel(){if(!PED)return;G.remove(PED.g);const id=PED.id;pfEnd();PED=n
 ACH.push(['pfurn','🛋️','Urządzony pokój','Kup mebel do pokoju szczeniaczka']);
 
 // --- CO NOWEGO ---
-const GVER=45;
-const CHANGES=['🔪 Kuchnia: znowu widać pasek krojenia i gotowania (większy, nad stanowiskiem)','👨‍🍳 Kuchnia: mniejsze ikonki nad stanowiskami – i można w nie stukać! Stuknięcie w ikonkę = idź tam i weź/odłóż','🕹️ Dwa nowe pomieszczenia za 100 🦴: Salon gier (automaty + maszyna z łapką) i Basen (kaczuszki, trampolina, zjeżdżalnia)','🐾 Mój pokój: obrót 360° palcem i 12 mebli do kupienia i ustawienia – dotknij mebla, żeby się nim pobawić','🐶 Nowy model szczeniaczka: pełniejszy, ładniejsze uszy, oczy i puszysty ogon','👨‍🍳 Kuchnia: duże podpisy składników i świecąca podpowiedź, dokąd iść','🍕 Pizza: duże przyciski składników na dole i czytelne zamówienie','⚔️ Wojownik: joystick w dowolnym miejscu ekranu, mniej kości, słabsze wysysanie życia','⏱ Owce i przeciąganie liny: rekord to teraz czas (np. 5:12)','🎾 Pan w przeciąganiu liny jest silniejszy i czasem mocno szarpie','😴 Spanie: widać legowisko, a każda zabawka w nim daje rano +1 🦴','🛑 Po końcu gry ekran blokuje się na 1 s – koniec przypadkowych kliknięć'];
+const GVER=46;
+const CHANGES=['👥 NOWOŚĆ: Lina 1 na 1 online! Stwórz pokój, podaj 4-znakowy kod znajomemu i klikajcie, kto szybciej przeciągnie linę (Zabawy → U Pana)','🔪 Kuchnia: znowu widać pasek krojenia i gotowania (większy, nad stanowiskiem)','👨‍🍳 Kuchnia: mniejsze ikonki nad stanowiskami – i można w nie stukać! Stuknięcie w ikonkę = idź tam i weź/odłóż','🕹️ Dwa nowe pomieszczenia za 100 🦴: Salon gier (automaty + maszyna z łapką) i Basen (kaczuszki, trampolina, zjeżdżalnia)','🐾 Mój pokój: obrót 360° palcem i 12 mebli do kupienia i ustawienia – dotknij mebla, żeby się nim pobawić','🐶 Nowy model szczeniaczka: pełniejszy, ładniejsze uszy, oczy i puszysty ogon','👨‍🍳 Kuchnia: duże podpisy składników i świecąca podpowiedź, dokąd iść','🍕 Pizza: duże przyciski składników na dole i czytelne zamówienie','⚔️ Wojownik: joystick w dowolnym miejscu ekranu, mniej kości, słabsze wysysanie życia','⏱ Owce i przeciąganie liny: rekord to teraz czas (np. 5:12)','🎾 Pan w przeciąganiu liny jest silniejszy i czasem mocno szarpie','😴 Spanie: widać legowisko, a każda zabawka w nim daje rano +1 🦴','🛑 Po końcu gry ekran blokuje się na 1 s – koniec przypadkowych kliknięć'];
 function newsUI(then){o(`<div class="pk"><h2>✨ Co nowego?</h2><p class="sm">Aktualizacja gry</p><ul class="news">${CHANGES.map(c=>`<li>${c}</li>`).join('')}</ul><button class="big" onclick="CFX.gv=${GVER};save();menuUI()">▶ Super, gramy!</button></div>`,'m')}
 {const _mu=menuUI;menuUI=function(){if((CFX.gv||0)<GVER&&!menuUI.seen){menuUI.seen=1;return newsUI()}_mu();const b=document.querySelector('#o.mm .mbt');if(b&&!document.querySelector('.mnews')){const x=document.createElement('button');x.className='mnews';x.textContent='✨ Nowości';x.onclick=()=>newsUI();b.insertBefore(x,b.lastElementChild)}}}
+
+// ===== MULTIPLAYER: PRZECIĄGANIE LINY 1 NA 1 (Firebase) =====
+const MPWIN=40,MPDUR=20;let MP=null;
+function mpCode(){const A='ABCDEFGHJKLMNPRSTUVWXYZ23456789';let s='';for(let i=0;i<4;i++)s+=A[Math.random()*A.length|0];return s}
+async function mpReq(path,method,body){const r=await lbF(path,{method,headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body)});if(!r.ok)throw new Error('http '+r.status);return r.json()}
+function mpUI(err){if(!lbOn())return lbOff();if(!CFX.nick)return nickUI(()=>mpUI());mpStop();
+ o(`<div class="pk"><h2>👥 Lina 1 na 1</h2><p class="sm">Zagraj ze znajomym na dwóch telefonach! Kto szybciej klika, ten przeciągnie linę 💪</p>${err?`<p class="lbm" style="background:#ff4d6d33;border-color:#ff4d6d">${err}</p>`:''}
+ <button class="big" onclick="mpCreate()">🆕 Stwórz pokój</button><p class="sm" style="margin:12px 0 4px">…albo wpisz kod od znajomego:</p>
+ <input id="mpc" class="nick" maxlength="4" placeholder="KOD" autocapitalize="characters" style="letter-spacing:8px;font-size:26px" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
+ <button class="sec" onclick="mpJoin($('mpc').value)">🔑 Dołącz do pokoju</button><p class="sm">Grasz jako <b>${lbEsc(CFX.nick)}</b> · <a href="#" onclick="nickUI(mpUI);return false">zmień nick</a></p><button class="sec" onclick="closeD()">← Wróć</button></div>`,'m')}
+async function mpCreate(){o(`<div class="pk"><h2>👥 Tworzę pokój…</h2></div>`,'m');try{let code,ex=1;for(let i=0;i<5&&ex;i++){code=mpCode();ex=await mpReq(`/mp/${code}.json`,'GET')}
+  await mpReq(`/mp/${code}.json`,'PUT',{h:{n:CFX.nick,c:0},st:'wait',r:0,t:{'.sv':'timestamp'}});mpStart(code,'h')}catch(e){mpUI('Nie udało się stworzyć pokoju. Sprawdź internet.')}}
+async function mpJoin(code){code=String(code||'').toUpperCase();if(!/^[A-Z0-9]{4}$/.test(code))return mpUI('Kod ma 4 znaki, np. K7MP');o(`<div class="pk"><h2>👥 Dołączam do ${code}…</h2></div>`,'m');
+ try{const R=await mpReq(`/mp/${code}.json`,'GET');if(!R||!R.h)return mpUI('Nie ma pokoju o kodzie '+code+' 🤔');if(R.g)return mpUI('Ten pokój jest już pełny');await mpReq(`/mp/${code}/g.json`,'PUT',{n:CFX.nick,c:0});mpStart(code,'g')}catch(e){mpUI('Nie udało się dołączyć. Sprawdź internet.')}}
+function mpStart(code,me){mpStop();MP={code,me,op:me=='h'?'g':'h',D:{},my:0,sent:0,ph:'wait',r:-1,taps:[],t:0};ph='mp';hclr();tb(0);mpRender();
+ const es=new EventSource(`${LB_URL}/mp/${code}.json`);MP.es=es;const on=ev=>{try{const m=JSON.parse(ev.data);mpApply(m.path,m.data,ev.type=='patch')}catch(e){}};es.addEventListener('put',on);es.addEventListener('patch',on);es.onerror=()=>{if(MP&&MP.es===es&&es.readyState==2)mpLost()};
+ MP.iv=setInterval(mpTick,100)}
+function mpApply(path,data,patch){if(!MP)return;const P=path.split('/').filter(Boolean);if(!P.length){if(patch)Object.assign(MP.D,data||{});else MP.D=data||{}}else{let o=MP.D;for(let i=0;i<P.length-1;i++){o[P[i]]=o[P[i]]||{};o=o[P[i]]}const k=P[P.length-1];if(patch&&data&&typeof data=='object')o[k]=Object.assign(o[k]||{},data);else if(data===null)delete o[k];else o[k]=data}mpSync()}
+function mpSync(){const M=MP,D=M.D;if(!D||!D.h){if(M.ph!='end'&&M.ph!='wait'||M.me=='g')return mpGone();return}
+ if(M.me=='h'&&D.g&&D.st=='wait'){mpReq(`/mp/${M.code}.json`,'PATCH',{st:'go',r:(D.r||0)+1}).catch(()=>{})}
+ if(D.st=='go'&&D.r!==M.r){M.r=D.r;M.ph='cd';M.t=3.2;M.my=0;M.sent=0;M.w=null;mpRender()}
+ if(D.w&&M.ph!='end'){M.ph='end';mpEnd(D.w)}mpDraw()}
+function mpOpc(){const o=MP.D[MP.op];return o?o.c||0:0}
+function mpTick(){const M=MP;if(!M)return;const dt=.1;
+ if(M.ph=='cd'){M.t-=dt;if(M.t<=0){M.ph='play';M.t=MPDUR;sfx('win');buzz(60)}mpDraw();return}
+ if(M.ph=='play'){M.t-=dt;if(M.my!=M.sent&&!M.pend){const v=M.my;M.pend=1;mpReq(`/mp/${M.code}/${M.me}/c.json`,'PUT',v).then(()=>{if(MP===M){M.sent=v;M.pend=0}}).catch(()=>{M.pend=0})}
+  const hc=M.me=='h'?M.my:mpOpc(),gc=M.me=='g'?M.my:mpOpc(),d=hc-gc;
+  if(M.me=='h'&&!M.wSent&&(Math.abs(d)>=MPWIN||M.t<=0)){M.wSent=1;const w=Math.abs(d)>=MPWIN?(d>0?'h':'g'):(d>0?'h':d<0?'g':'d');mpReq(`/mp/${M.code}.json`,'PATCH',{w,st:'end',h:{n:M.D.h.n,c:hc},g:{n:M.D.g.n,c:gc}}).catch(()=>{})}
+  if(M.me=='g'&&M.t<-5&&M.ph=='play'){M.ph='end';mpEnd(d>0?'h':d<0?'g':'d')}mpDraw()}}
+function mpTap(e){if(e)e.preventDefault();const M=MP;if(!M||M.ph!='play')return;const now=performance.now();M.taps=M.taps.filter(t=>now-t<1000);if(M.taps.length>=14)return;M.taps.push(now);M.my++;sfx('tap');const b=$('mpb');if(b){b.classList.remove('hit');void b.offsetWidth;b.classList.add('hit')}mpDraw()}
+function mpRender(){const M=MP;const D=M.D,opn=D[M.op]&&D[M.op].n;
+ if(M.ph=='wait'){o(`<div class="pk mpk"><h2>👥 Pokój</h2>${M.me=='h'?`<p class="sm">Podaj ten kod znajomemu:</p><div class="mpcode">${M.code}</div><button class="sec" onclick="mpShare()">📤 Wyślij kod</button><p class="sm mpdots">Czekam na drugiego gracza</p>`:`<div class="mpcode">${M.code}</div><p class="sm mpdots">Łączę z gospodarzem</p>`}<button class="sec" onclick="mpQuit()">✖ Wyjdź</button></div>`,'m');return}
+ o(`<div class="mpw"><div class="mph"><span>👥 ${M.code}</span><b id="mpt"></b><button onclick="mpQuit()">✖</button></div>
+ <div class="mpn"><div class="me">🐶 ${lbEsc(CFX.nick)}<small id="mpm">0</small></div><div class="op"><small id="mpo">0</small>${lbEsc(opn||'…')} 🐕</div></div>
+ <div class="mpr"><i class="l"></i><i class="r"></i><div class="rope"></div><div id="mpk">🎀</div><span class="ml">🏁</span><span class="mr">🏁</span></div>
+ <div id="mpmsg"></div><button id="mpb" onpointerdown="mpTap(event)">💪<br>CIĄGNIJ!</button></div>`,'mpo');mpDraw()}
+function mpDraw(){const M=MP;if(!M||!$('mpk'))return;const op=mpOpc(),d=M.my-op,x=50-clamp(d/MPWIN,-1,1)*42;$('mpk').style.left=x+'%';$('mpm').textContent=M.my;$('mpo').textContent=op;
+ $('mpt').textContent=M.ph=='play'?'⏱ '+Math.max(0,M.t).toFixed(1)+'s':'';const msg=$('mpmsg');msg.textContent=M.ph=='cd'?Math.ceil(M.t)+'…':M.ph=='play'?(d>8?'Wygrywasz! 🔥':d<-8?'Szybciej!! 😱':'Równo! ⚖️'):'';msg.className=M.ph=='cd'?'cd':'';$('mpb').disabled=M.ph!='play'}
+function mpEnd(w){const M=MP;if(!M)return;const win=w==M.me,draw=w=='d';sfx(win?'win':'bad');
+ if(win){ach('mpwin','Mistrz liny online');if(CFX.mpD!=day){CFX.mpD=day;CFX.mpN=0}if((CFX.mpN||0)<5){CFX.mpN=(CFX.mpN||0)+1;earn(3);save()}}
+ const D=M.D;o(`<div class="pk"><h2>${draw?'🤝 Remis!':win?'🏆 Wygrana!':'😅 Przegrana'}</h2><p style="font-size:18px">🐶 ${lbEsc(CFX.nick)}: <b>${M.my}</b> · ${lbEsc((D[M.op]||{}).n||'?')}: <b>${mpOpc()}</b> kliknięć</p>${win&&(CFX.mpN||0)<=5?'<p>+3 🦴</p>':''}
+ ${M.me=='h'?`<button class="big" onclick="mpRematch()">🔁 Rewanż</button>`:`<p class="sm mpdots">Rewanż zaczyna gospodarz</p>`}<button class="sec" onclick="mpQuit()">✖ Wyjdź</button></div>`,'m');const pp=$('p');if(pp){pp.classList.add('lk');setTimeout(()=>pp.classList.remove('lk'),1000)}}
+function mpRematch(){const M=MP;if(!M)return;M.wSent=0;mpReq(`/mp/${M.code}.json`,'PATCH',{w:null,st:'go',r:(M.D.r||0)+1,h:{n:M.D.h.n,c:0},g:M.D.g?{n:M.D.g.n,c:0}:null}).catch(()=>{})}
+function mpShare(){const t=`Zagraj ze mną w przeciąganie liny! 🐶 Wejdź na ${location.href.split('#')[0]} → Zabawy → 👥 Lina 1 na 1 i wpisz kod: ${MP.code}`;if(navigator.share)navigator.share({text:t}).catch(()=>{});else{try{navigator.clipboard.writeText(t);flash('📋 Skopiowano!')}catch(e){}}}
+function mpStop(){if(!MP)return;try{MP.es&&MP.es.close()}catch(e){}clearInterval(MP.iv);const M=MP;MP=null;if(M.me=='h')mpReq(`/mp/${M.code}.json`,'DELETE').catch(()=>{});else mpReq(`/mp/${M.code}/g.json`,'DELETE').catch(()=>{})}
+function mpQuit(){mpStop();o('');room(1)}
+function mpGone(){const M=MP;if(!M)return;mpStop();o(`<div class="pk"><h2>👋 Drugi gracz wyszedł</h2><button class="big" onclick="mpUI()">👥 Nowa gra</button><button class="sec" onclick="mpQuit()">Wróć do Pana</button></div>`,'m')}
+function mpLost(){const M=MP;if(!M)return;mpStop();o(`<div class="pk"><h2>😕 Zerwane połączenie</h2><p class="sm">Sprawdź internet.</p><button class="big" onclick="mpUI()">👥 Spróbuj jeszcze raz</button><button class="sec" onclick="mpQuit()">Wróć</button></div>`,'m')}
+{const _rs=reset;reset=function(){if(MP&&ph=='mp')mpStop();_rs()}}
+{const i=GL.findIndex(g=>g[0]=='tug');GL.splice(i+1,0,['tugmp','👥','Lina 1 na 1 online','','mpUI()'])}
+ACH.push(['mpwin','👥','Mistrz liny online','Wygraj przeciąganie liny z innym graczem']);
 
 load();size();
 menu();

@@ -12,6 +12,27 @@
         }
       }
     },
+    "mp": {
+      "$code": {
+        ".read": "$code.matches(/^[A-Z0-9]{4}$/)",
+        ".write": "$code.matches(/^[A-Z0-9]{4}$/)",
+        "h": {
+          "n": {".validate": "newData.isString() && newData.val().length <= 16"},
+          "c": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 5000"},
+          "$other": {".validate": false}
+        },
+        "g": {
+          "n": {".validate": "newData.isString() && newData.val().length <= 16"},
+          "c": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 5000"},
+          "$other": {".validate": false}
+        },
+        "st": {".validate": "newData.isString() && newData.val().length <= 6"},
+        "r": {".validate": "newData.isNumber()"},
+        "w": {".validate": "newData.isString() && newData.val().length <= 2"},
+        "t": {".validate": "newData.isNumber()"},
+        "$other": {".validate": false}
+      }
+    },
     "$any": {".read": false, ".write": false}
   }
 }
